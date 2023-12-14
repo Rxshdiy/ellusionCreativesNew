@@ -1,3 +1,10 @@
+v2.0.15 - 13-December-2023
+- Improvement: Added conditional logo for onboarding screen.
+
+v2.0.14 - 13-December-2023
+- New: Introduced Non-Adaptive mode option.
+- Improvement: Improved pattern and page preview UI.
+
 v2.0.13 - 07-December-2023
 - Improvement: Showing Server Traffic Surge toaster.
 - Improvement: Updated the flat rates for Pages and Patterns library from 3000 to 5000.

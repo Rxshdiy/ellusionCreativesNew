@@ -5,7 +5,7 @@ Tags: Elementor,Beaver Builder,Templates,Gutenberg,Block Editor,Astra Starter Si
 Requires at least: 4.4
 Requires PHP: 5.3
 Tested up to: 6.4
-Stable tag: 3.5.2
+Stable tag: 3.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,7 +48,7 @@ Businesses like restaurants, lawyers, agencies, interior designers, artist shops
 - [Beaver Builder Free Website Templates](https://wpastra.com/ready-websites/?page-builder=beaver-builder&category=free)
 - [Block Editor Free Website Templates](https://wpastra.com/ready-websites/?page-builder=gutenberg&category=free)
 
-You can extend this library with premium ready-to-use website demos by purchasing one of the Astra Bundles, i.e. either the Essential Bundle or the Growth Bundle.
+You can extend this library with premium ready-to-use website demos by purchasing one of the Essential or Business Toolkits.
 
 = WHY PEOPLE LOVE THE ASTRA THEME? =
 
@@ -134,6 +134,10 @@ We are open to suggestions and would love to work on topics that our users are l
 8. Free Images by Pixabay right inside the WordPress media popup.
 
 == Changelog ==
+
+v3.5.3 - 13-December-2023
+- New: Introduced Non-adaptive mode option in Template Kit library.
+- Improvement: Added default line-height to heading tag in Template Kit library for a better preview of patterns and pages.
 
 v3.5.2 - 07-December-2023
 - New: All new AI based Template Kit library.

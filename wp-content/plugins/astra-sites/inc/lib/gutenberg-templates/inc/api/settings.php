@@ -71,6 +71,10 @@ class Settings extends Api_Base {
 							'type'     => 'boolean',
 							'required' => true,
 						),
+						'adaptive_mode' => array(
+							'type'     => 'boolean',
+							'required' => true,
+						),
 					),
 				),
 			)
@@ -137,6 +141,8 @@ class Settings extends Api_Base {
 		$settings = array();
 		$disable_ai = $request->get_param( 'disable_ai' );
 		$disable_preview = $request->get_param( 'disable_preview' );
+		$adaptive_mode = $request->get_param( 'adaptive_mode' );
+		$settings['adaptive_mode'] = $adaptive_mode;
 		$settings['disable_ai'] = $disable_ai;
 		$settings['disable_preview'] = $disable_preview;
 		$status = update_option( 'ast_block_templates_ai_settings', $settings );

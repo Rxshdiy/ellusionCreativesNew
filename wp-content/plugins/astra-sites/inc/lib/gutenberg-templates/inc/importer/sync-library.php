@@ -46,13 +46,9 @@ class Sync_Library {
 	/**
 	 * Get Custimizer CSS.
 	 *
-	 * @return string
+	 * @return void
 	 */
-	public function maybe_get_server_astra_customizer_css() {
-
-		if ( defined( 'ASTRA_THEME_VERSION' ) ) {
-			return '';
-		}
+	public function get_server_astra_customizer_css() {
 
 		Helper::instance()->ast_block_templates_log( 'BLOCK: Getting Server Custimizer CSS' );
 
@@ -72,6 +68,7 @@ class Sync_Library {
 
 			if ( isset( $res_data['data']['customizer_css'] ) ) {
 				update_option( 'ast-block-templates-customizer-css', $res_data['data']['customizer_css'] );
+				do_action( 'ast_block_templates_customizer_css', $res_data['data']['customizer_css'] );
 			}
 		}
 	}
@@ -160,6 +157,7 @@ class Sync_Library {
 		}
 		$this->process_data_sync( $result_data );
 		$this->update_latest_checksums( $result_data['checksum'] );
+		$this->get_server_astra_customizer_css();
 	}
 
 	/**
@@ -250,6 +248,7 @@ class Sync_Library {
 			'ast-block-templates-blocks-7',
 			'ast-block-templates-block-requests',
 			'ast-block-templates-last-export-checksums',
+			'ast-block-templates-customizer-css',
 		);
 	}
 
@@ -466,7 +465,7 @@ class Sync_Library {
 
 		// Get count.
 		$total_requests = $this->get_total_blocks_requests();
-		$this->maybe_get_server_astra_customizer_css();
+		$this->get_server_astra_customizer_css();
 		if ( $total_requests ) {
 			wp_send_json_success(
 				array(

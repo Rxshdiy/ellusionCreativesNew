@@ -749,27 +749,35 @@ class Plugin {
 		$ast_header = '';
 		$ast_footer = '';
 		$static_css_path = '';
+		$astra_customizer_css = '';
+
 		if ( defined( 'ASTRA_THEME_VERSION' ) ) {
 			$astra_customizer_css = ( class_exists( 'Astra_Dynamic_CSS' ) ) ? \Astra_Dynamic_CSS::return_output( '' ) : '';
-			ob_start();
-			$ast_header = astra_header_markup();
-			$ast_header = ob_get_clean();
+			//phpcs:disable
+			// ob_start();
+			// $ast_header = astra_header_markup();
+			// $ast_header = ob_get_clean();
 
-			ob_start();
-			$ast_footer = astra_footer_markup();
-			$ast_footer = ob_get_clean();
-			$static_css_path = ASTRA_THEME_DIR . 'assets/css/minified/main.min.css';
-		} else {
-			$astra_customizer_css = get_option( 'ast-block-templates-customizer-css', '' );
-			if ( empty( $astra_customizer_css ) ) {
-				Sync_Library::instance()->maybe_get_server_astra_customizer_css();
-				$astra_customizer_css = get_option( 'ast-block-templates-customizer-css', '' );
-			}
+			// ob_start();
+			// $ast_footer = astra_footer_markup();
+			// $ast_footer = ob_get_clean();
+			// $static_css_path = ASTRA_THEME_DIR . 'assets/css/minified/main.min.css';
+			//phpcs:enable
+			
 		}
 
-
+		$server_astra_customizer_css = get_option( 'ast-block-templates-customizer-css', '' );
+		if ( empty( $server_astra_customizer_css ) ) {
+			Sync_Library::instance()->get_server_astra_customizer_css();
+			$server_astra_customizer_css = get_option( 'ast-block-templates-customizer-css', '' );
+		}
+		
+		// Set line height to 1.2em.
+		$astra_customizer_css .= 'h1{ line-height: 1.2em; }';
+		$server_astra_customizer_css .= 'h1{ line-height: 1.2em; }';
 		$settings = get_option( 'ast_block_templates_ai_settings', array() );
 		$disable_ai = isset( $settings['disable_ai'] ) ? $settings['disable_ai'] : false;
+		$adaptive_mode = isset( $settings['adaptive_mode'] ) ? $settings['adaptive_mode'] : false;
 		$disable_preview = isset( $settings['disable_preview'] ) ? $settings['disable_preview'] : false;
 		$remove_parameters = array( 'credit_token', 'token', 'email', 'ast_action', 'nonce' );
 
@@ -843,8 +851,9 @@ class Plugin {
 							'page' => array(),
 						)
 					),
-					'astra_customizer_css' => str_replace( 'body', '.st-block-container', $astra_customizer_css ),
+					'astra_customizer_css' => str_replace( 'body', '.st-block-container', defined( 'ASTRA_THEME_VERSION' ) ? $astra_customizer_css : $server_astra_customizer_css ),
 					'disable_ai' => $disable_ai,
+					'adaptive_mode' => $adaptive_mode,
 					'debug_mode' => Helper::instance()->is_debug_mode() ? 'yes' : 'no',
 					'disable_preview' => $disable_preview,
 					'images' => AST_BLOCK_TEMPLATES_URI . 'admin-assets/images/',
@@ -869,6 +878,7 @@ class Plugin {
 					'header_markup' => $ast_header,
 					'footer_markup' => $ast_footer,
 					'astra_static_css_path' => $static_css_path,
+					'server_astra_customizer_css' => str_replace( 'body', '.st-block-container', $server_astra_customizer_css ),
 				)
 			)
 		);
